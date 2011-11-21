@@ -30,13 +30,13 @@ build([H|T]) ->
 
 %% @spec get_number_path(Index::list(), Lattice::list()) -> integer()
 %% @doc Return the number of paths across the point at Index from the
-%%      origin of the Lattice.
+%%      origin [0,0,0 ..] of the Lattice.
 get_number_path([], _Lattice) ->
 	0;
 get_number_path([H|[]], Lattice) ->
-	lists:nth(H, Lattice);
+	lists:nth(H+1, Lattice);
 get_number_path([H|T], Lattice) ->
-	get_number_path(T, lists:nth(H,Lattice)).
+	get_number_path(T, lists:nth(H+1,Lattice)).
 
 %% @spec get_number_path(Index1::list(), Index2::list(), Lattice::list()) -> integer()
 %% @doc Return the number of paths across the point at Index2 from the point at 
@@ -46,7 +46,7 @@ get_number_path([], [], _Lattice) ->
 get_number_path([], Index, Lattice) when is_list(Index) ->
 	get_number_path(Index, Lattice);
 get_number_path(Index1, Index2, Lattice) when is_list(Index1) and is_list(Index2) ->
-	Index = map(fun(X, Y) -> Y-(X-1) end, Index1, Index2),
+	Index = map(fun(X, Y) -> Y-Xzend, Index1, Index2),
 	get_number_path(Index, Lattice).
 
 %% Internal functions
